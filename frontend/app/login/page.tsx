@@ -7,13 +7,7 @@ import toast from 'react-hot-toast';
 import { useOptimizedNavigation } from '@/hooks/useOptimizedNavigation';
 
 // ---------------------------------------------------------------------------
-// LoginPage — refactored for instant redirect.
-//
-// OLD: signIn → wait for onAuthStateChange → wait for fetchProfile → useEffect
-//      detects profile → router.push                    (up to 2-3s)
-//
-// NEW: signIn → read role from the JWT that Supabase returns RIGHT NOW →
-//      router.push immediately                           (~0ms extra)
+// LoginPage — instant redirect after sign-in.
 //
 // The authContext picks up the session via onAuthStateChange in the background
 // and loads the full DB profile without blocking the user at all.
@@ -24,7 +18,7 @@ function dashboardForRole(role?: string) {
     case 'admin':
       return '/admin/dashboard';
     case 'employee':
-      return '/homepage';
+      return '/employee/dashboard';
     default:
       return '/dashboard';
   }
@@ -71,21 +65,13 @@ export default function LoginPage() {
         return;
       }
 
-      // ── ADMIN ONLY ENFORCEMENT ──────────────────────────────────────────
       const role = data.session?.user?.user_metadata?.role as string | undefined;
-      
-      if (role !== 'admin') {
-        // Log them out immediately
-        await supabase.auth.signOut();
-        toast.error('Use the mobile app for customer/employee accounts.');
-        setLoading(false);
-        return;
-      }
 
-      toast.success('Admin access granted!');
-      navigate('/admin/dashboard');
+      toast.success('Signed in successfully');
+      navigate(dashboardForRole(role));
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Sign in failed');
+    } finally {
       setLoading(false);
     }
   }
@@ -219,6 +205,18 @@ export default function LoginPage() {
         }
         .login-submit:hover:not(:disabled) { background: #1e293b; }
         .login-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .signup-prompt {
+          margin-top: var(--md-space-5);
+          font-size: 13px;
+          color: var(--text-3);
+          text-align: center;
+        }
+        .signup-prompt a {
+          color: var(--blue-600);
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .signup-prompt a:hover { text-decoration: underline; }
         
         @keyframes login-spin { to { transform: rotate(360deg); } }
         .login-spinner {
@@ -249,13 +247,13 @@ export default function LoginPage() {
           </Link>
 
           <div className="left-content">
-            <p className="left-eyebrow">Administration Portal</p>
+            <p className="left-eyebrow">CleanOps Portal</p>
             <h1 className="left-headline">
-              Management &<br />
-              <span>Oversight</span>
+              CleanOps<br />
+              <span>Access</span>
             </h1>
             <p className="left-body-text">
-              Secure access for CleanOps administrators to manage operations, resolve disputes, and oversee platform growth.
+              Secure access for customers, employees, and administrators to manage their CleanOps account.
             </p>
           </div>
         </div>
@@ -263,21 +261,21 @@ export default function LoginPage() {
         <div className="login-panel-right">
           <div className="login-form-wrap">
             <div className="login-form-header">
-              <h2 className="login-form-title">Admin Login</h2>
+              <h2 className="login-form-title">Sign in</h2>
               <p className="login-form-sub">
-                Enterprise management console
+                Access your CleanOps account
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="login-field">
-                <label className="login-label" htmlFor="email">Admin Email</label>
+                <label className="login-label" htmlFor="email">Email</label>
                 <div className="login-input-wrap">
                   <input
                     id="email"
                     className="login-input"
                     type="email"
-                    placeholder="admin@cleanops.com"
+                    placeholder="name@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -324,6 +322,10 @@ export default function LoginPage() {
                 {loading ? <div className="login-spinner" /> : 'Enter Portal'}
               </button>
             </form>
+
+            <div className="signup-prompt">
+              Need an account? <Link href="/signup">Create one here</Link>
+            </div>
           </div>
         </div>
       </div>
