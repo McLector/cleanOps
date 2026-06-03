@@ -1,6 +1,6 @@
 # CleanOps
 
-A full-stack service marketplace for cleaning jobs featuring real-time geolocation, mock money escrow system, job dispatching, and a Supabase-powered backend.
+A full-stack service marketplace for cleaning jobs featuring real-time geolocation, mock money escrow system, job dispatching, and a Supabase-powered backend..
 
 ## Stack
 
