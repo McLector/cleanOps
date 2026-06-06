@@ -61,26 +61,27 @@ export function MessageThread({
 
   return (
     <div
-      className="flex flex-col h-full rounded-lg shadow-md"
+      className="flex h-full min-h-0 flex-col rounded-none shadow-md sm:rounded-lg"
       style={{
         backgroundColor: 'var(--md-surface)',
       }}
     >
       {/* Header */}
       <div
-        className="px-6 py-4 border-b"
+        data-testid="message-thread-header"
+        className="min-w-0 border-b px-4 py-3 sm:px-6 sm:py-4"
         style={{
           borderColor: 'var(--md-divider)',
         }}
       >
         <h3
-          className="font-semibold text-lg"
+          className="truncate text-base font-semibold sm:text-lg"
           style={{ color: 'var(--md-on-surface)' }}
         >
           {otherPartyName}
         </h3>
         <p
-          className="text-sm"
+          className="truncate text-sm"
           style={{ color: 'var(--md-on-surface-muted)' }}
         >
           {jobAddress}
@@ -88,7 +89,7 @@ export function MessageThread({
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div data-testid="message-thread-scroll" className="flex-1 space-y-4 overflow-y-auto p-4 sm:p-6">
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
@@ -111,7 +112,8 @@ export function MessageThread({
                 className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                  data-testid={`message-bubble-${message.id}`}
+                  className={`max-w-[min(82vw,28rem)] rounded-lg px-3 py-2 sm:px-4 ${
                     isOwn
                       ? 'rounded-br-none'
                       : 'rounded-bl-none'
@@ -151,18 +153,19 @@ export function MessageThread({
 
       {/* Input Area */}
       <div
-        className="border-t p-4"
+        data-testid="message-thread-composer"
+        className="border-t p-3 sm:p-4"
         style={{
           borderColor: 'var(--md-divider)',
         }}
       >
-        <div className="flex gap-2">
+        <div className="flex items-end gap-2">
           <textarea
             value={messageContent}
             onChange={(e) => setMessageContent(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Type a message... (Shift+Enter for new line)"
-            className="flex-1 px-4 py-2 rounded-lg border resize-none focus:outline-none focus:ring-2"
+            className="min-w-0 flex-1 resize-none rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 sm:px-4"
             style={{
               borderColor: 'var(--md-divider)',
               backgroundColor: 'var(--md-background)',
@@ -171,11 +174,12 @@ export function MessageThread({
             } as React.CSSProperties}
             rows={3}
             disabled={sending}
+            aria-label="Message"
           />
           <Button
             onClick={handleSendMessage}
             disabled={sending || !messageContent.trim()}
-            className="h-auto"
+            className="h-10 w-10 shrink-0 p-0 sm:h-auto sm:w-auto sm:px-4"
             style={{
               backgroundColor: sending ? 'var(--md-primary-200)' : 'var(--md-primary-500)',
               color: sending ? 'var(--md-on-primary-container)' : 'var(--md-on-primary)',

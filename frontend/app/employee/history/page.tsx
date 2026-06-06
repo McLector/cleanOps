@@ -29,17 +29,9 @@ export default function EmployeeHistoryPage() {
 
   return (
     <ProtectedRoute requiredRole="employee" redirectTo="/customer/dashboard">
-      <div className="flex h-screen overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
+      <div className="flex h-dvh overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
         {/* Navigation Drawer */}
-        <NavigationDrawer />
-
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
+        <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
@@ -51,10 +43,9 @@ export default function EmployeeHistoryPage() {
 
           {/* Page Content */}
           <main
-            className="flex-1 overflow-auto p-6"
+            className="flex-1 overflow-auto p-4 sm:p-6"
             style={{
               backgroundColor: 'var(--md-background)',
-              padding: 'var(--md-space-6)',
             }}
           >
             <div className="mx-auto max-w-7xl">
@@ -74,7 +65,7 @@ export default function EmployeeHistoryPage() {
               {loading && historyJobs.length === 0 ? (
                 <HistoryPageSkeleton />
               ) : historyJobs.length === 0 ? (
-                <div className="rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/50 p-12 text-center space-y-4">
+                <div className="space-y-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/50 p-6 text-center sm:p-12">
                   <div className="flex justify-center">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
                       <FileText className="h-8 w-8 text-slate-400" />

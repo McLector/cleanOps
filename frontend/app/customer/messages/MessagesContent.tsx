@@ -14,11 +14,11 @@ export function MessagesContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const initialJobId = searchParams.get('job')
   const [selectedJobId, setSelectedJobId] = useState<string | null>(
-    searchParams.get('job')
+    initialJobId
   )
-  const [showList, setShowList] = useState(true)
+  const [showList, setShowList] = useState(!initialJobId)
 
   const { conversations, loading } = useConversations()
 
@@ -39,10 +39,10 @@ export function MessagesContent() {
   }
 
   return (
-    <main className="flex-1 overflow-hidden">
+    <main className="min-h-0 flex-1 overflow-hidden">
       {/* Mobile: List View */}
       {showList && (
-        <div className="lg:hidden h-full flex flex-col">
+        <div className="flex h-full flex-col lg:hidden">
           <ConversationList
             conversations={conversations}
             selectedJobId={selectedJobId}
@@ -59,8 +59,8 @@ export function MessagesContent() {
 
       {/* Mobile: Thread View */}
       {!showList && selectedConvo && (
-        <div className="lg:hidden h-full flex flex-col">
-          <div className="p-3 border-b bg-white">
+        <div className="flex h-full flex-col lg:hidden">
+          <div className="border-b bg-white p-3">
             <Button
               variant="ghost"
               size="sm"
@@ -85,7 +85,7 @@ export function MessagesContent() {
       )}
 
       {/* Desktop: Two-column layout */}
-      <div className="hidden lg:grid grid-cols-[320px_1fr] h-full gap-4 p-4">
+      <div className="hidden h-full grid-cols-[320px_1fr] gap-4 p-4 lg:grid">
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <ConversationList
             conversations={conversations}

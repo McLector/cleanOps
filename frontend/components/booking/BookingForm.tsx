@@ -42,7 +42,7 @@ function ProgressStepper({ currentStep }: { currentStep: 'size' | 'location' | '
   const currentIndex = steps.findIndex((s) => s.id === currentStep);
 
   return (
-    <div className="mb-8">
+    <div className="mb-6 sm:mb-8">
       <div className="flex items-center justify-between">
         {steps.map((step, index) => {
           const Icon = step.icon;
@@ -53,7 +53,7 @@ function ProgressStepper({ currentStep }: { currentStep: 'size' | 'location' | '
             <div key={step.id} className="flex items-center flex-1">
               <div className="flex flex-col items-center flex-1">
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all sm:h-12 sm:w-12 ${
                     isCompleted
                       ? 'border-blue-600 bg-blue-600'
                       : isCurrent
@@ -72,7 +72,7 @@ function ProgressStepper({ currentStep }: { currentStep: 'size' | 'location' | '
                   />
                 </div>
                 <span
-                  className={`mt-2 text-xs font-medium transition-colors ${
+                  className={`mt-2 hidden text-center text-xs font-medium transition-colors sm:block ${
                     isCurrent || isCompleted ? 'text-gray-900' : 'text-gray-500'
                   }`}
                 >
@@ -99,7 +99,7 @@ function BookingSummary() {
   const { size, address, urgency, tasks, price_amount } = useBookingStore();
 
   return (
-    <Card className="sticky top-0 h-fit border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <Card className="h-fit border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 lg:sticky lg:top-4">
       <CardHeader className="pb-4">
         <CardTitle className="text-lg">Booking Summary</CardTitle>
       </CardHeader>
@@ -190,7 +190,7 @@ function StepSize() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="p-4 space-y-6 sm:p-6">
         <div className="space-y-3">
           <Label className="text-base font-semibold text-gray-900">Select your property size</Label>
           <div className="grid grid-cols-1 gap-3">
@@ -222,7 +222,7 @@ function StepSize() {
         </div>
 
         <div className="flex justify-end gap-3 pt-4">
-          <Button onClick={() => setStep('location')} disabled={!size} className="gap-2">
+          <Button onClick={() => setStep('location')} disabled={!size} className="w-full gap-2 sm:w-auto">
             Next <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -271,7 +271,7 @@ function StepLocation() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="p-4 space-y-6 sm:p-6">
         <div className="space-y-3">
           <Label htmlFor="address" className="text-base font-semibold text-gray-900">
             Address
@@ -316,11 +316,11 @@ function StepLocation() {
           <Button
             variant="outline"
             onClick={() => setStep('size')}
-            className="gap-2"
+            className="flex-1 gap-2 sm:flex-none"
           >
             <ChevronLeft className="h-4 w-4" /> Back
           </Button>
-          <Button onClick={handleNext} className="gap-2">
+          <Button onClick={handleNext} className="flex-1 gap-2 sm:flex-none">
             Next <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -360,11 +360,11 @@ function StepUrgency() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 space-y-8">
+      <CardContent className="p-4 space-y-6 sm:p-6 sm:space-y-8">
         {/* Urgency Section */}
         <div className="space-y-4">
           <Label className="text-base font-semibold text-gray-900">Urgency Level</Label>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {URGENCIES.map((u) => (
               <button
                 key={u.value}
@@ -405,7 +405,7 @@ function StepUrgency() {
               {tasks.length} selected
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {TASKS.map((t) => (
               <button
                 key={t}
@@ -445,7 +445,7 @@ function StepUrgency() {
           <Button
             variant="outline"
             onClick={() => setStep('location')}
-            className="gap-2"
+            className="flex-1 gap-2 sm:flex-none"
           >
             <ChevronLeft className="h-4 w-4" /> Back
           </Button>
@@ -455,7 +455,7 @@ function StepUrgency() {
               setStep('payment');
             }}
             disabled={tasks.length === 0}
-            className="gap-2"
+            className="flex-1 gap-2 sm:flex-none"
           >
             Continue to payment <ChevronRight className="h-4 w-4" />
           </Button>
@@ -530,7 +530,7 @@ function StepPayment() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="p-4 space-y-6 sm:p-6">
         {/* Booking Details Summary */}
         <div className="space-y-3">
           <h3 className="text-base font-semibold text-gray-900">Booking Details</h3>
@@ -573,9 +573,9 @@ function StepPayment() {
         </div>
 
         {/* Payment Amount */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6">
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4 sm:p-6">
           <p className="text-xs font-semibold text-blue-900 uppercase tracking-widest">Payment Amount</p>
-          <p className="text-4xl font-bold text-blue-600 mt-3">${price_amount.toFixed(2)}</p>
+          <p className="text-3xl font-bold text-blue-600 mt-3 sm:text-4xl">${price_amount.toFixed(2)}</p>
           <div className="mt-4 space-y-2 pt-4 border-t border-blue-200">
             <div className="flex items-start gap-2">
               <span className="text-blue-600 text-lg mt-0.5">✓</span>
@@ -609,7 +609,7 @@ function StepPayment() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-between gap-3 pt-4">
+        <div className="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-between">
           <Button
             variant="outline"
             onClick={() => setStep('urgency')}
@@ -636,7 +636,7 @@ export function BookingForm() {
   const { step } = useBookingStore();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <div className="min-h-dvh bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 px-4 py-6 sm:py-8">
       <div className="mx-auto max-w-6xl">
   
 
@@ -644,7 +644,7 @@ export function BookingForm() {
         <ProgressStepper currentStep={step} />
 
         {/* Main Content Grid */}
-        <div className="grid gap-8 lg:grid-cols-3 mt-8">
+        <div className="grid gap-6 lg:grid-cols-3 lg:gap-8 mt-6 sm:mt-8">
           {/* Form Content - Left Side (Takes 2 columns) */}
           <div className="lg:col-span-2">
             {step === 'size' && <StepSize />}

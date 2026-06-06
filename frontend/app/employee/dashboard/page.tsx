@@ -136,17 +136,9 @@ export default function EmployeeDashboardPage() {
 
   return (
     <ProtectedRoute requiredRole="employee" redirectTo="/customer/dashboard">
-      <div className="flex h-screen overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
+      <div className="flex h-dvh overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
         {/* Navigation Drawer */}
-        <NavigationDrawer />
-
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
+        <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
@@ -158,10 +150,9 @@ export default function EmployeeDashboardPage() {
 
           {/* Page Content */}
           <main 
-            className="flex-1 overflow-auto p-6"
+            className="flex-1 overflow-auto p-4 sm:p-6"
             style={{ 
-              backgroundColor: 'var(--md-background)',
-              padding: 'var(--md-space-6)'
+              backgroundColor: 'var(--md-background)'
             }}
           >
             <div className="mx-auto max-w-7xl">
@@ -169,7 +160,7 @@ export default function EmployeeDashboardPage() {
 
               {/* Header */}
               <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900">Welcome back!</h1>
+                <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Welcome back!</h1>
                 <p className="text-slate-600 mt-1">Here&apos;s your work summary and earnings overview.</p>
               </div>
 

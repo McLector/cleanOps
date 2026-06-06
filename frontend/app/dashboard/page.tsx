@@ -103,15 +103,8 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute requiredRole="customer">
-      <div className="flex h-screen overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
+      <div className="flex h-dvh overflow-hidden" style={{ fontFamily: 'var(--md-font-body)' }}>
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
-
-        {isMobileMenuOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
 
         <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
           <TopAppBar 
@@ -121,30 +114,29 @@ export default function Dashboard() {
           />
 
           <main 
-            className="flex-1 overflow-auto p-6"
+            className="flex-1 overflow-auto p-4 sm:p-6"
             style={{ 
-              backgroundColor: 'var(--md-background)',
-              padding: 'var(--md-space-6)'
+              backgroundColor: 'var(--md-background)'
             }}
           >
             <div className="max-w-7xl mx-auto space-y-6">
-              <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-2xl p-8 shadow-lg text-white overflow-hidden relative">
+              <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-2xl p-4 shadow-lg text-white overflow-hidden relative sm:p-6 lg:p-8">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16" />
                 
                 <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <greeting.icon className="w-8 h-8" />
-                    <span className="text-lg font-semibold text-blue-100">{greeting.text}</span>
+                  <div className="flex items-center gap-2 mb-2 sm:gap-3">
+                    <greeting.icon className="h-6 w-6 sm:h-8 sm:w-8" />
+                    <span className="text-sm font-semibold text-blue-100 sm:text-lg">{greeting.text}</span>
                   </div>
-                  <h1 className="text-5xl md:text-7xl font-bold mb-2 leading-tight">
+                  <h1 className="mb-2 text-3xl font-bold leading-tight sm:text-4xl md:text-6xl">
                     Welcome back,{' '}
-                    <span className="text-blue-200 block md:inline text-6xl md:text-8xl font-extrabold">
+                    <span className="block text-4xl font-extrabold text-blue-200 sm:text-5xl md:inline md:text-7xl">
                       {firstWord}
                     </span>
                     !
                   </h1>
-                  <p className="text-blue-100 text-lg">
+                  <p className="text-sm text-blue-100 sm:text-lg">
                     {currentDate ? `Today is ${currentDate}` : 'Loading date...'}
                   </p>
                 </div>

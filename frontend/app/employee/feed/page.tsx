@@ -20,7 +20,7 @@ import { useOptimizedNavigation } from '@/hooks/useOptimizedNavigation';
 
 function EmptyState({ onRefresh, isRefreshing }: { onRefresh: () => void; isRefreshing: boolean }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-slate-200 bg-white px-8 py-24 text-center">
+    <div className="flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-slate-200 bg-white px-4 py-16 text-center sm:px-8 sm:py-24">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100">
         <Briefcase className="h-8 w-8 text-slate-400" aria-hidden="true" />
       </div>
@@ -47,6 +47,7 @@ function EmptyState({ onRefresh, isRefreshing }: { onRefresh: () => void; isRefr
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EmployeeFeedPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [applying, setApplying] = useState<string | null>(null);
   const [jobsList, setJobsList] = useState<Job[]>([]);
   const [userApplications, setUserApplications] = useState<string[]>([]); // Store job IDs the user applied to
@@ -121,12 +122,12 @@ export default function EmployeeFeedPage() {
 
   return (
     <ProtectedRoute requiredRole="employee" redirectTo="/customer/dashboard">
-      <div className="flex h-screen overflow-hidden bg-slate-50 antialiased">
+      <div className="flex h-dvh overflow-hidden bg-slate-50 antialiased">
 
-        <NavigationDrawer />
+        <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
         <div className="flex flex-1 flex-col overflow-hidden">
-          <TopAppBar title="Available Jobs" />
+          <TopAppBar onMenuClick={() => setIsMobileMenuOpen(true)} title="Available Jobs" />
 
           <main className="flex-1 overflow-y-auto">
             <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6">

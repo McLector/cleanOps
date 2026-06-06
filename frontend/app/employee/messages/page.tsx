@@ -1,20 +1,23 @@
 'use client'
 
 import { Suspense } from 'react'
+import { useState } from 'react'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { NavigationDrawer } from '@/components/layout/NavigationDrawer'
 import { TopAppBar } from '@/components/layout/TopAppBar'
 import { MessagesContent } from './MessagesContent'
 
 export default function EmployeeMessagesPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <ProtectedRoute requiredRole="employee" redirectTo="/customer/dashboard">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
-        <NavigationDrawer />
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
+        <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
 
         <div className="flex-1 flex flex-col overflow-hidden">
           <TopAppBar
-            onMenuClick={() => {}}
+            onMenuClick={() => setIsMobileMenuOpen(true)}
             title="Messages"
           />
 

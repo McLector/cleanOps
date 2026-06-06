@@ -834,11 +834,13 @@
     gap: 12px; 
     margin-bottom: 20px; 
     flex-shrink: 0;
+    flex-wrap: wrap;
   }
   
   .search-wrap {
     flex: 1; 
     max-width: 380px;
+    min-width: min(100%, 260px);
     position: relative; 
     display: flex; 
     align-items: center;
@@ -882,6 +884,7 @@
   .btn-sort {
     display: flex; 
     align-items: center; 
+    justify-content: center;
     gap: 6px;
     padding: 9px 16px; 
     border-radius: var(--r-full);
@@ -925,9 +928,39 @@
   /* Cards Grid */
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: 18px;
     flex: 1;
+  }
+
+  @media (max-width: 640px) {
+    .toolbar {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .search-wrap {
+      max-width: none;
+      width: 100%;
+    }
+
+    .toolbar-spacer {
+      display: none;
+    }
+
+    .sort-dropdown-container,
+    .btn-sort,
+    .btn-refresh {
+      width: 100%;
+    }
+
+    .btn-view {
+      display: none;
+    }
+
+    .cards-grid {
+      gap: 14px;
+    }
   }
 
   /* Ripple effect */

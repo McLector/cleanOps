@@ -192,16 +192,16 @@ export function JobDetailContent({ backPath, backLabel, showApprove = false }: J
             {/* Main Status Card ... */}
             <Card className="border-0 shadow-md">
               <CardContent className="pt-6">
-                <div className="flex items-start justify-between gap-4 mb-6">
-                  <div>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0">
+                    <h1 className="break-words text-xl font-bold text-slate-900 mb-2 sm:text-3xl">
                       {job.location_address || 'Job Location TBD'}
                     </h1>
                     <p className="text-sm text-slate-500">
                       Job ID: {job.id.slice(-8).toUpperCase()}
                     </p>
                   </div>
-                  <span className={`px-4 py-2 rounded-full inline-flex items-center gap-2 font-semibold ${statusConfig.bgColor} ${statusConfig.color}`}>
+                  <span className={`inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 font-semibold ${statusConfig.bgColor} ${statusConfig.color}`}>
                     <StatusIcon className="w-4 h-4" />
                     {statusConfig.label}
                   </span>
@@ -222,7 +222,7 @@ export function JobDetailContent({ backPath, backLabel, showApprove = false }: J
                 </div>
 
                 {/* Key Metrics ... */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t">
+                <div className="grid grid-cols-1 gap-4 border-t pt-4 sm:grid-cols-3">
                   <div className="text-center">
                     <p className="text-2xl font-bold text-slate-900">
                       {formatPrice(job.price_amount)}
@@ -270,21 +270,21 @@ export function JobDetailContent({ backPath, backLabel, showApprove = false }: J
                   ) : (
                     <div className="divide-y">
                       {applications.filter(a => a.status === 'PENDING').map((app) => (
-                        <div key={app.id} className="py-4 flex items-center justify-between gap-4 first:pt-0 last:pb-0">
-                          <div className="flex items-center gap-3">
+                        <div key={app.id} className="flex flex-col gap-4 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="flex min-w-0 items-center gap-3">
                             <div className="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-lg border-2 border-white shadow-sm">
                               {app.employee_profile?.full_name?.[0] || 'P'}
                             </div>
-                            <div>
-                              <p className="font-bold text-slate-900">{app.employee_profile?.full_name || 'Professional'}</p>
-                              <div className="flex items-center gap-1 mt-0.5">
+                            <div className="min-w-0">
+                              <p className="truncate font-bold text-slate-900">{app.employee_profile?.full_name || 'Professional'}</p>
+                              <div className="flex flex-wrap items-center gap-1 mt-0.5">
                                 <span className="text-amber-500 text-xs">★</span>
                                 <span className="text-xs font-semibold text-slate-600">{app.employee_profile?.rating?.toFixed(1) || 'No ratings'}</span>
                                 <span className="text-[10px] text-slate-400 ml-1">Applied {formatDistanceToNow(new Date(app.created_at), { addSuffix: true })}</span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex gap-2">
+                          <div className="grid grid-cols-2 gap-2 sm:flex">
                             <Button 
                               size="sm" 
                               variant="outline" 
@@ -482,11 +482,11 @@ export function JobDetailContent({ backPath, backLabel, showApprove = false }: J
             )}
 
             {/* Action Buttons ... */}
-            <div className="flex gap-3 pt-4">
+            <div className="flex flex-col gap-3 pt-4 sm:flex-row">
               {canMessage && (
                 <Button 
                   onClick={handleMessageClick}
-                  className="flex-1 flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700"
+                  className="flex flex-1 items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700"
                 >
                   <MessageCircle className="w-4 h-4" />
                   Send Message

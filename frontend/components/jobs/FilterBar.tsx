@@ -285,10 +285,10 @@ export function FilterBar({ filters, onFiltersChange }: FilterBarProps) {
             </div>
 
             {/* Mobile Filter Actions */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors border flex items-center gap-2"
+                className="flex shrink-0 items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
                 style={{
                   borderColor: 'var(--md-divider)',
                   backgroundColor: 'var(--md-surface)',
@@ -305,17 +305,17 @@ export function FilterBar({ filters, onFiltersChange }: FilterBarProps) {
               </button>
 
               {/* Mobile Sort */}
-              <div className="relative">
+              <div className="relative min-w-0 flex-1">
                 <button
-                  className="px-4 py-2 rounded-lg text-sm font-medium transition-colors border flex items-center gap-2"
+                  className="flex w-full min-w-0 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors"
                   style={{
                     borderColor: 'var(--md-divider)',
                     backgroundColor: 'var(--md-surface)',
                     color: 'var(--md-on-surface-muted)'
                   }}
                 >
-                  Sort: {filters.sortBy}
-                  <ChevronDown size={16} />
+                  <span className="truncate">Sort: {filters.sortBy}</span>
+                  <ChevronDown className="shrink-0" size={16} />
                 </button>
               </div>
             </div>
