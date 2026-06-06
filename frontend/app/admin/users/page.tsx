@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Star, AlertCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { AdminFilterBar } from '@/components/admin/AdminFilterBar';
+import { AdminUsersMobileList } from '@/components/admin/AdminUsersMobileList';
 import { useAuth } from '@/lib/authContext';
 import { Profile, Job } from '@/types';
 
@@ -191,7 +192,7 @@ export default function AdminUsersPage() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -227,12 +228,24 @@ export default function AdminUsersPage() {
             </div>
           </AdminFilterBar>
 
-          <main className="flex-1 overflow-auto p-6 pt-0">
+          <main className="flex-1 overflow-auto p-4 pt-0 sm:p-6">
             <div className="max-w-6xl mx-auto py-6">
               
               {/* Table */}
               <div className="bg-white rounded-xl shadow-[var(--md-elevation-1)] border border-slate-200">
-                <div className="overflow-x-auto min-h-[60vh]">
+                <AdminUsersMobileList
+                  users={users}
+                  loading={loading}
+                  expandedRows={expandedRows}
+                  userActivityCache={userActivityCache}
+                  roleStyles={roleStyles}
+                  avatarStyles={avatarStyles}
+                  onToggleUser={toggleRow}
+                  onSuspendUser={setSuspendModalUser}
+                  onViewJobs={(userId) => router.push(`/admin/jobs?search=${userId}`)}
+                />
+
+                <div className="hidden overflow-x-auto min-h-[60vh] md:block">
                   <table className="w-full text-left border-collapse">
                     <thead className="sticky top-0 z-10 bg-slate-50 border-b border-slate-200">
                       <tr>
@@ -359,11 +372,11 @@ export default function AdminUsersPage() {
                 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div className="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50 rounded-b-xl">
+                  <div className="flex flex-col gap-3 rounded-b-xl border-t border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
                     <div className="text-sm text-slate-500">
                       Showing <span className="font-semibold text-slate-700">{(page - 1) * ITEMS_PER_PAGE + 1}</span> to <span className="font-semibold text-slate-700">{Math.min(page * ITEMS_PER_PAGE, totalUsers)}</span> of <span className="font-semibold text-slate-700">{totalUsers}</span> users
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 overflow-x-auto">
                       <Button
                         variant="outline"
                         size="sm"

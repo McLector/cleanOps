@@ -70,27 +70,27 @@ export default function AdminSettingsPage() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden relative">
           <TopAppBar onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} title="Platform Settings" />
           
           {maintenance && (
-            <div className="bg-red-50 text-red-700 py-3 px-6 flex items-center gap-3 border-b border-red-200">
+            <div className="bg-red-50 text-red-700 px-4 py-3 flex items-center gap-3 border-b border-red-200 sm:px-6">
               <AlertTriangle className="w-5 h-5 flex-shrink-0" />
               <p className="text-sm font-medium">Site is in maintenance mode — new job creation is disabled for customers.</p>
             </div>
           )}
 
-          <main className="flex-1 overflow-auto p-6">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <main className="flex-1 overflow-auto p-4 sm:p-6">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
               
               {/* LEFT COLUMN: Settings Form */}
               <div className="lg:col-span-2 space-y-6">
                 
                 {/* FINANCIAL */}
-                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <h3 className="text-lg font-bold text-slate-800">Financial Setup</h3>
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
                 </section>
 
                 {/* OPERATIONS */}
-                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <h3 className="text-lg font-bold text-slate-800">Operations</h3>
@@ -175,7 +175,7 @@ export default function AdminSettingsPage() {
                 </section>
 
                 {/* PLATFORM STATUS */}
-                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <h3 className="text-lg font-bold text-slate-800">Platform Status</h3>
@@ -207,7 +207,7 @@ export default function AdminSettingsPage() {
 
               {/* RIGHT COLUMN: Context Panel */}
               <div className="lg:col-span-1">
-                <div className="sticky top-6">
+                <div className="lg:sticky lg:top-6">
                   <div className="bg-slate-800 text-white rounded-xl shadow-lg p-6 overflow-hidden relative">
                     {/* Decorative bg element */}
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-slate-700 rounded-full blur-2xl opacity-50" />

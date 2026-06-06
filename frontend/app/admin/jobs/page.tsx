@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { AdminFilterBar } from '@/components/admin/AdminFilterBar';
+import { AdminJobsMobileList } from '@/components/admin/AdminJobsMobileList';
 import { useAuth } from '@/lib/authContext';
 
 import { Suspense } from 'react';
@@ -42,7 +43,7 @@ function useDebounce<T>(value: T, delay: number): T {
 export default function AdminJobsPage() {
   return (
     <Suspense fallback={
-      <div className="flex h-screen items-center justify-center bg-slate-50">
+      <div className="flex h-dvh items-center justify-center bg-slate-50">
         <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     }>
@@ -168,7 +169,7 @@ function AdminJobsContent() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -217,12 +218,25 @@ function AdminJobsContent() {
             </div>
           </AdminFilterBar>
 
-          <main className="flex-1 overflow-auto p-6 pt-0">
+          <main className="flex-1 overflow-auto p-4 pt-0 sm:p-6">
             <div className="max-w-7xl mx-auto py-6">
               
               {/* Table */}
               <div className="bg-white rounded-xl shadow-[var(--md-elevation-1)] border border-slate-200 overflow-hidden">
-                <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
+                <AdminJobsMobileList
+                  jobs={data?.jobs || []}
+                  loading={loading}
+                  expandedRows={expandedRows}
+                  statusColors={statusColors}
+                  onToggleRow={toggleRow}
+                  onCopyJobId={copyToClipboard}
+                  onSelectAction={(job, action) => {
+                    setSelectedJob(job);
+                    setModalAction(action);
+                  }}
+                />
+
+                <div className="hidden overflow-x-auto scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent md:block">
                   <table className="min-w-[1100px] w-full text-left border-collapse table-fixed">
                     <thead className="sticky top-0 z-10 bg-slate-50 border-b border-slate-200">
                       <tr>
@@ -383,15 +397,12 @@ function AdminJobsContent() {
 
                 {/* Pagination Controls */}
                 {!loading && totalPages > 1 && (
-                  <div className="bg-white px-4 py-3 border-t border-slate-200 flex items-center justify-between sm:px-6">
-                    <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                      <div>
-                        <p className="text-sm text-slate-700">
-                          Showing <span className="font-medium">{(page - 1) * 20 + 1}</span> to <span className="font-medium">{Math.min(page * 20, data.total)}</span> of <span className="font-medium">{data.total}</span> results
-                        </p>
-                      </div>
-                      <div>
-                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px text-sm" aria-label="Pagination">
+                  <div className="flex flex-col gap-3 border-t border-slate-200 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                    <p className="text-sm text-slate-700">
+                      Showing <span className="font-medium">{(page - 1) * 20 + 1}</span> to <span className="font-medium">{Math.min(page * 20, data.total)}</span> of <span className="font-medium">{data.total}</span> results
+                    </p>
+                    <div className="overflow-x-auto">
+                      <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px text-sm" aria-label="Pagination">
                           <button
                             onClick={() => updatePageInUrl(Math.max(1, page - 1))}
                             disabled={page === 1}
@@ -425,8 +436,7 @@ function AdminJobsContent() {
                           >
                             Next
                           </button>
-                        </nav>
-                      </div>
+                      </nav>
                     </div>
                   </div>
                 )}

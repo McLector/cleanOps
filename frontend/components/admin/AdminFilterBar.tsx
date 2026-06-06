@@ -41,11 +41,14 @@ export function AdminFilterBar({
 }: AdminFilterBarProps) {
   return (
     <div className="bg-slate-50 border-b border-slate-200 z-20">
-      <div className="max-w-7xl mx-auto p-6 pb-4 space-y-4">
-        <div className="flex flex-col md:flex-row gap-4 items-end justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+      <div className="max-w-7xl mx-auto p-4 pb-3 sm:p-6 sm:pb-4 space-y-4">
+        <div
+          data-testid="admin-filter-card"
+          className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-end justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-200"
+        >
           
           {/* Search Section */}
-          <div className="w-full md:w-1/4">
+          <div className="w-full lg:w-1/4">
             <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1 block">Search</label>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -60,7 +63,7 @@ export function AdminFilterBar({
 
           {/* Dynamic Filters */}
           {filters.map((filter, idx) => (
-            <div key={idx} className={filter.type === 'pills' ? 'flex-1 flex flex-col' : 'flex flex-col'}>
+            <div key={idx} className={filter.type === 'pills' ? 'flex-1 flex flex-col min-w-0' : 'flex w-full flex-col lg:w-auto'}>
               <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1 block">{filter.label}</label>
               {filter.type === 'pills' ? (
                 <div className="flex flex-wrap gap-2">
@@ -98,7 +101,7 @@ export function AdminFilterBar({
           {/* Reset Button */}
           {onReset && (
             <div className="flex items-end h-full">
-              <Button variant="outline" size="sm" onClick={onReset} className="text-slate-500 border-slate-300 hover:bg-slate-100 px-3 h-9">
+              <Button variant="outline" size="sm" onClick={onReset} className="w-full text-slate-500 border-slate-300 hover:bg-slate-100 px-3 h-9 lg:w-auto">
                 <FilterX className="w-4 h-4 mr-2" /> Reset
               </Button>
             </div>
@@ -108,7 +111,10 @@ export function AdminFilterBar({
 
         {/* Summary Bar */}
         {summary && (
-          <div className="bg-blue-50 text-blue-800 text-sm font-medium px-4 py-2 rounded-lg border border-blue-100 flex justify-between">
+          <div
+            data-testid="admin-filter-summary"
+            className="bg-blue-50 text-blue-800 text-sm font-medium px-4 py-2 rounded-lg border border-blue-100 flex flex-col sm:flex-row gap-1 sm:gap-4 sm:items-center sm:justify-between"
+          >
             {summary}
           </div>
         )}

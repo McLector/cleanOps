@@ -115,7 +115,7 @@ export default function ReviewQueuePage() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -137,7 +137,7 @@ export default function ReviewQueuePage() {
             </div>
           </AdminFilterBar>
 
-          <main className="flex-1 overflow-auto p-6 pt-0">
+          <main className="flex-1 overflow-auto p-4 pt-0 sm:p-6">
             <div className="max-w-7xl mx-auto py-6 space-y-4">
               
               <div className="flex items-center justify-between mb-2">

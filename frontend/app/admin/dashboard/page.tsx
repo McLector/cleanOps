@@ -49,7 +49,7 @@ export default function AdminDashboardPage() {
   if (!stats && loading) {
     return (
       <ProtectedRoute requiredRole="admin">
-        <div className="flex h-screen overflow-hidden bg-slate-50">
+        <div className="flex h-dvh overflow-hidden bg-slate-50">
           <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
           <div className="flex-1 flex flex-col overflow-hidden">
             <TopAppBar onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} title="Dashboard Overview" />
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex h-screen overflow-hidden bg-slate-50">
+      <div className="flex h-dvh overflow-hidden bg-slate-50">
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden">
