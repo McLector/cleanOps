@@ -219,7 +219,7 @@ export function NotificationPopover() {
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        className="w-[380px] p-0 bg-white border border-slate-200 shadow-[0_10px_40px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden z-[100] animate-in slide-in-from-top-2 duration-200"
+        className="w-[calc(100vw-1rem)] max-w-[380px] sm:w-[380px] p-0 bg-white border border-slate-200 shadow-[0_10px_40px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden z-[100] animate-in slide-in-from-top-2 duration-200"
       >
         {/* Header */}
         <div className="px-5 py-4 flex items-center justify-between bg-white border-b border-slate-100">

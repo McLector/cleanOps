@@ -143,7 +143,7 @@ export default function ProfilePage() {
 
   return (
     <ProtectedRoute>
-      <div className="flex h-screen overflow-hidden bg-slate-50" style={{ fontFamily: 'var(--md-font-body)' }}>
+      <div className="flex h-dvh overflow-hidden bg-slate-50" style={{ fontFamily: 'var(--md-font-body)' }}>
         <NavigationDrawer isMobileOpen={isMobileMenuOpen} setIsMobileOpen={setIsMobileMenuOpen} />
         
         <div className="flex-1 flex flex-col overflow-hidden">

@@ -12,7 +12,7 @@ import { Footer } from '@/components/home/Footer';
 
 function HomePage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--md-background)' }}>
+    <div className="min-h-dvh" style={{ backgroundColor: 'var(--md-background)' }}>
       {/* Minimalist Navbar - only on homepage */}
       <Navbar />
       

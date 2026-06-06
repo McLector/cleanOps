@@ -1,6 +1,6 @@
 export default function GlobalLoading() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-dvh bg-slate-50">
       <div className="h-1 w-full overflow-hidden bg-slate-200">
         <div className="h-full w-1/3 animate-pulse rounded-r-full bg-sky-500" />
       </div>

@@ -193,7 +193,7 @@ export function NavigationDrawer({ isMobileOpen, setIsMobileOpen }: { isMobileOp
       {/* Navigation Drawer */}
       <div
         className={`
-          fixed left-0 top-0 h-full bg-white z-50 transform transition-transform duration-300 ease-in-out
+          fixed left-0 top-0 flex h-dvh max-w-[calc(100vw-2rem)] flex-col bg-white z-50 transform transition-transform duration-300 ease-in-out
           lg:relative lg:transform-none
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
@@ -234,13 +234,14 @@ export function NavigationDrawer({ isMobileOpen, setIsMobileOpen }: { isMobileOp
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 p-2">
+        <nav className="flex-1 overflow-y-auto p-2">
           {filteredNavItems.map((item: NavigationItem) => (
             <Link
               key={item.id}
               href={item.href}
+              onClick={() => handleSetMobileOpen(false)}
               className={`
-                relative flex items-center gap-3 px-3 py-2 rounded-lg mb-1 transition-all duration-200
+                relative flex min-h-11 items-center gap-3 px-3 py-2 rounded-lg mb-1 transition-all duration-200
                 ${isActive(item.href)
                   ? 'bg-blue-50 text-blue-600'
                   : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -330,7 +331,10 @@ export function NavigationDrawer({ isMobileOpen, setIsMobileOpen }: { isMobileOp
                 <Link
                   href="/profile"
                   className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                  onClick={() => setShowUserMenu(false)}
+                  onClick={() => {
+                    setShowUserMenu(false);
+                    handleSetMobileOpen(false);
+                  }}
                 >
                   <User className="h-4 w-4" />
                   Profile
@@ -338,7 +342,10 @@ export function NavigationDrawer({ isMobileOpen, setIsMobileOpen }: { isMobileOp
                 <Link
                   href="/settings"
                   className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                  onClick={() => setShowUserMenu(false)}
+                  onClick={() => {
+                    setShowUserMenu(false);
+                    handleSetMobileOpen(false);
+                  }}
                 >
                   <Settings className="h-4 w-4" />
                   Settings

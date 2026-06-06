@@ -18,7 +18,7 @@ export function MainLayout({ children, title, subtitle, breadcrumb }: MainLayout
 
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div data-testid="main-layout-shell" className="flex h-dvh overflow-hidden bg-gray-50">
       {/* Navigation Drawer */}
       <NavigationDrawer 
         isMobileOpen={isMobileMenuOpen} 
@@ -68,7 +68,7 @@ export function MainLayout({ children, title, subtitle, breadcrumb }: MainLayout
           )}
           
           {/* Page Content */}
-          <div className="p-6">
+          <div data-testid="main-layout-content" className="p-4 sm:p-6">
             {children}
           </div>
         </main>

@@ -252,7 +252,7 @@ export default function JobsPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--md-background)' }}>
+    <div className="min-h-dvh" style={{ backgroundColor: 'var(--md-background)' }}>
       {/* Filter Bar */}
       <FilterBar 
         filters={filters} 
